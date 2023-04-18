@@ -21,26 +21,19 @@ streamlit.text('trying chatgpt')
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 cursor = my_cnx.cursor()
-cursor.execute('select client_name from clients')
-columns = [row[0] for row in cursor.fetchall()]
-# Display the column in a Streamlit dropdown
-selected_client = st.selectbox('Select a client', columns)
 
-# Insert new value into the clients table
-new_client = st.text_input('Enter a new value for the selected column')
-if client:
-    cursor.execute("INSERT INTO clients (client_name, {}) VALUES ('new_client', '{}')".format(selected_client, new_client))
+cursor.execute('SELECT client_name FROM clients')
+client_names = [row[0] for row in cursor.fetchall()]
 
+# Display the list of client names in a Streamlit dropdown
+selected_client_name = st.selectbox('Select a client', client_names)
 
-# client_dropdown = streamlit.sidebar.selectbox('Select Client',client_list["client_name"])
-# client_dropdown = streamlit.sidebar.selectbox('Select Client',client_list)
+# Allow the user to add a new client name
+new_client_name = st.text_input('Enter a new client name')
+if new_client_name:
+    # Insert the new client name into the "clients" table
+    cursor.execute("INSERT INTO clients (client_name) VALUES ('{}')".format(new_client_name))
 
-
-# client_selected = streamlit.multiselect("Pick some fruits:", client_list)
-
-
-# client_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
-# client_list = my_data_rows.set_index('client_name')
 
   # Add a pick list to pick the client
 # client_selected = streamlit.multiselect("Pick a client:", list(my_data_rows.index))
