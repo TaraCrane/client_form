@@ -29,7 +29,7 @@ selected_client = st.selectbox('Select a client', columns)
 # Insert new value into the clients table
 new_client = st.text_input('Enter a new value for the selected column')
 if client:
-    cursor.execute("INSERT INTO clients (client_name, {}) VALUES ('new_client', '{}')".format(selected_client, client))
+    cursor.execute("INSERT INTO clients (client_name, {}) VALUES ('new_client', '{}')".format(selected_client, new_client))
 
 
 # client_dropdown = streamlit.sidebar.selectbox('Select Client',client_list["client_name"])
