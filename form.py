@@ -9,5 +9,5 @@ streamlit.header("Clients:")
 # Snowflake related functions
 def get_client_list():
     with my_cnx.cursor() as my_cur:
-         my_cur.execute("SELECT * FROM clients")
+         my_cur.execute("SELECT client_name FROM clients")
          return my_cur.fetchall()
