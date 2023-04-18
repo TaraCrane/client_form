@@ -19,6 +19,8 @@ streamlit.header("Clients:")
 
 streamlit.text('trying chatgpt')
 
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+cursor = my_cnx.cursor()
 cursor.execute('select client_name from clients')
 columns = [row[0] for row in cursor.fetchall()]
 selected_column = st.selectbox('Select a column', columns)
