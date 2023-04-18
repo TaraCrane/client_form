@@ -1,6 +1,6 @@
 import streamlit
 import snowflake.connector
-import pandas
+import pandas as pd
 
 streamlit.title('Client Form')
 streamlit.header('Project Data Collection')
