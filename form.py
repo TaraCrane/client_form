@@ -17,12 +17,13 @@ streamlit.header("Clients:")
 # my_data_rows = my_cur.fetchall()
 # client_list = streamlit.dataframe(my_data_rows)
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-client_list = my_cur.execute("select client_name from clients")
+streamlit.text('trying chatgpt')
+
+cursor.execute('select client_name from clients')
+columns = [row[0] for row in cursor.fetchall()]
+selected_column = st.selectbox('Select a column', columns)
 
 
-streamlit.text('trying selectbox')
 # client_dropdown = streamlit.sidebar.selectbox('Select Client',client_list["client_name"])
 # client_dropdown = streamlit.sidebar.selectbox('Select Client',client_list)
 
