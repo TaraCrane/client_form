@@ -21,6 +21,7 @@ streamlit.text('trying chatgpt 16:30')
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 cursor = my_cnx.cursor()
+# --------------------------------- Select or add client ---------------------------------
 cursor.execute('SELECT client_name FROM clients')
 client_names = [row[0] for row in cursor.fetchall()]
 
@@ -28,7 +29,7 @@ client_names = [row[0] for row in cursor.fetchall()]
 selected_client_name = st.selectbox('Select a client', client_names)
 
 # Allow the user to add a new client name
-new_client_name = st.text_input('Enter a new client name')
+new_client_name = st.text_input('Add a new client')
 if new_client_name:
     # Check if the client name already exists in the "clients" table
     exists = False
@@ -50,8 +51,37 @@ if new_client_name:
             cursor.execute('SELECT client_name FROM clients')
             client_names = [row[0] for row in cursor.fetchall()]
 
+# --------------------------------- Select or add project ---------------------------------
+cursor.execute('SELECT project_name FROM projects')
+project_names = [row[0] for row in cursor.fetchall()]
 
-  # Add a pick list to pick the client
+# Display the list of projects in a Streamlit dropdown
+selected_project = st.selectbox('Select a project', project_names)
+
+# Allow the user to add a new project name
+new_project_name = st.text_input('Add a new project')
+if new_project_name:
+    # Check if the project name already exists in the "projects" table
+    exists = False
+    for name in project_names:
+        if new_project_name.strip().lower() == name.strip().lower():
+            exists = True
+            break
+    
+    if exists:
+        st.error('Project already exists. Please select from the list.')
+    else:
+        if st.button('Add project'):
+            # Insert the new project name into the "project" table
+            cursor.execute("INSERT INTO projects (project_names) VALUES ('{}')".format(new_project_name))
+            # Commit the changes
+            conn.commit()
+            st.success('Project added successfully')
+            # Refresh the list of project names
+            cursor.execute('SELECT project_name FROM projects')
+            project_names = [row[0] for row in cursor.fetchall()]            
+
+  # Add a pick list to pick the project
 # client_selected = streamlit.multiselect("Pick a client:", list(my_data_rows.index))
 # client_to_show = get_client_list.loc[client_selected]
 
