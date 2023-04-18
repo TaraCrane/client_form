@@ -18,9 +18,7 @@ my_data_rows = my_cur.fetchall()
 client_list = streamlit.dataframe(my_data_rows)
 
 streamlit.text('printing fetchall')
-my_data_rows
-streamlit.text('printing dataframe')
-client_list
+streamlit.markdown(client_list.index.tolist())
 
 
 # client_selected = streamlit.multiselect("Pick some fruits:", client_list)
