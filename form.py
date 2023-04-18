@@ -17,7 +17,7 @@ streamlit.header("Clients:")
 # my_data_rows = my_cur.fetchall()
 # client_list = streamlit.dataframe(my_data_rows)
 
-streamlit.text('trying chatgpt')
+streamlit.text('trying chatgpt 16:30')
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 cursor = my_cnx.cursor()
