@@ -19,6 +19,8 @@ client_list = streamlit.dataframe(my_data_rows)
 
 print(my_data_rows)
 
+print(client_list)
+
 
 # client_selected = streamlit.multiselect("Pick some fruits:", client_list)
 
