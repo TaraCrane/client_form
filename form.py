@@ -15,7 +15,7 @@ my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("select client_name from clients")
 my_data_rows = my_cur.fetchall()
-client_list = streamlit.dataframe(my_data_rows)
+# client_list = streamlit.dataframe(my_data_rows)
 
 
 # client_selected = streamlit.multiselect("Pick some fruits:", client_list)
