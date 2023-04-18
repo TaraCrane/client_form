@@ -21,7 +21,6 @@ streamlit.text('trying chatgpt 16:30')
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 cursor = my_cnx.cursor()
-
 cursor.execute('SELECT client_name FROM clients')
 client_names = [row[0] for row in cursor.fetchall()]
 
@@ -31,8 +30,25 @@ selected_client_name = st.selectbox('Select a client', client_names)
 # Allow the user to add a new client name
 new_client_name = st.text_input('Enter a new client name')
 if new_client_name:
-    # Insert the new client name into the "clients" table
-    cursor.execute("INSERT INTO clients (client_name) VALUES ('{}')".format(new_client_name))
+    # Check if the client name already exists in the "clients" table
+    exists = False
+    for name in client_names:
+        if new_client_name.strip().lower() == name.strip().lower():
+            exists = True
+            break
+    
+    if exists:
+        st.error('Client already exists. Please select from the list.')
+    else:
+        if st.button('Add client'):
+            # Insert the new client name into the "clients" table
+            cursor.execute("INSERT INTO clients (client_name) VALUES ('{}')".format(new_client_name))
+            # Commit the changes
+            conn.commit()
+            st.success('Client added successfully')
+            # Refresh the list of client names
+            cursor.execute('SELECT client_name FROM clients')
+            client_names = [row[0] for row in cursor.fetchall()]
 
 
   # Add a pick list to pick the client
