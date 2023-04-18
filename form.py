@@ -13,10 +13,11 @@ my_cur = my_cnx.cursor()
 my_cur.execute("select client_name from clients")
 my_data_rows = my_cur.fetchall()
 streamlit.dataframe(my_data_rows)
+streamlit.list(my_data_rows)
 
   # Add a pick list to pick the client
-client_selected = streamlit.select("Pick a client:", list(my_data_rows.index))
-client_to_show = get_client_list.loc[client_selected]
+# client_selected = streamlit.multiselect("Pick a client:", list(my_data_rows.index))
+# client_to_show = get_client_list.loc[client_selected]
 
 
 # my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
