@@ -1,6 +1,8 @@
 import streamlit
-import snowflake.connector
 import pandas as pd
+import requests
+import snowflake.connector
+from urllib.error import URLError
 
 streamlit.title('Client Form')
 streamlit.header('Project Data Collection')
