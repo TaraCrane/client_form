@@ -17,9 +17,6 @@ my_cur.execute("select client_name from clients")
 my_data_rows = my_cur.fetchall()
 client_list = streamlit.dataframe(my_data_rows)
 
-streamlit.text('printing fetchall')
-streamlit.markdown(client_list.index.tolist())
-
 streamlit.text('trying selectbox')
 client_dropdown = streamlit.sidebar.selectbox('Select Client',client_list["client_name"])
 
