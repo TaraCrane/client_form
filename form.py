@@ -23,7 +23,13 @@ my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 cursor = my_cnx.cursor()
 cursor.execute('select client_name from clients')
 columns = [row[0] for row in cursor.fetchall()]
-selected_column = st.selectbox('Select a column', columns)
+# Display the column in a Streamlit dropdown
+selected_client = st.selectbox('Select a client', columns)
+
+# Insert new value into the clients table
+new_client = st.text_input('Enter a new value for the selected column')
+if client:
+    cursor.execute("INSERT INTO clients (client_name, {}) VALUES ('new_client', '{}')".format(selected_client, client))
 
 
 # client_dropdown = streamlit.sidebar.selectbox('Select Client',client_list["client_name"])
