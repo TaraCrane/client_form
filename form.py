@@ -14,10 +14,12 @@ my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("select client_name from clients")
 my_data_rows = my_cur.fetchall()
-streamlit.tolist(my_data_rows)
+streamlit.dataframe(my_data_rows)
+
+streamlit.list(my_data_rows)
 
 # client_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
-client_list = my_data_rows.set_index('client_name')
+# client_list = my_data_rows.set_index('client_name')
 
 # streamlit.list(my_data_rows.index)
 
