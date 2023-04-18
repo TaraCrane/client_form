@@ -1,5 +1,6 @@
 import streamlit
 import snowflake.connector
+import pandas
 
 streamlit.title('Client Form')
 streamlit.header('Project Data Collection')
@@ -11,7 +12,7 @@ my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("select client_name from clients")
 my_data_rows = my_cur.fetchall()
-streamlit.text(my_data_rows)
+streamlit.dataframe(my_data_rows)
 
 # my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 # my_cur = my_cnx.cursor()
