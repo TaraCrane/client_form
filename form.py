@@ -13,7 +13,7 @@ my_cur = my_cnx.cursor()
 my_cur.execute("select client_name from clients")
 my_data_rows = my_cur.fetchall()
 streamlit.dataframe(my_data_rows)
-streamlit.list(my_data_rows)
+streamlit.list(my_data_rows.index)
 
   # Add a pick list to pick the client
 # client_selected = streamlit.multiselect("Pick a client:", list(my_data_rows.index))
